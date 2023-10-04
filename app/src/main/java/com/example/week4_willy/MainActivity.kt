@@ -10,8 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.week4_willy.data.dummy_data
 import com.example.week4_willy.ui.theme.Week4_WillyTheme
-import com.example.week4_willy.ui.view.LinePreview
 import com.example.week4_willy.ui.view.No1
+import com.example.week4_willy.ui.view.No1Preview
+import com.example.week4_willy.ui.view.No2
+import com.example.week4_willy.ui.view.No2Preview
 
 
 class MainActivity : ComponentActivity() {
@@ -24,8 +26,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-//                    No1(dummy_data().get_data_line())
-
+                    No1(dummy_data().get_data_line())
+//                      No2(dummy_data().get_data_tokopedia_category(), dummy_data().get_data_tokopedia_product())
                 }
             }
         }
@@ -36,6 +38,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppPreview() {
     Week4_WillyTheme {
-        LinePreview()
+        No2Preview()
     }
 }

@@ -12,8 +12,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -49,15 +49,14 @@ fun No1(lineList: List<line_chat>) {
                 text = "Chats",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = Color.White, // Set text color to white
-                overflow = TextOverflow.Ellipsis,
+                color = Color.White,
                 textAlign = TextAlign.Start
             )
 
             Icon(
-                imageVector = Icons.Default.MoreVert, // Replace with your actual icon
-                contentDescription = null, // Provide a description for accessibility
-                tint = Color.White // Set the icon color to white
+                imageVector = Icons.Default.MoreVert,
+                contentDescription = null,
+                tint = Color.White
             )
         }
         LazyColumn() {
@@ -92,12 +91,11 @@ fun LineCard(lineList: line_chat, modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Left icon (Assuming you have an Image or Icon component here)
                 Icon(
-                    imageVector = Icons.Default.Face, // Replace with your actual icon
-                    contentDescription = null, // Provide a description for accessibility
+                    imageVector = Icons.Default.Person,
+                    contentDescription = null,
                     modifier = Modifier.padding(16.dp).size(50.dp),
-                    tint = Color.White // Set the icon color to white
+                    tint = Color.White
                 )
 
                 // Middle column (Name and Message)
@@ -109,39 +107,36 @@ fun LineCard(lineList: line_chat, modifier: Modifier = Modifier) {
                     Text(
                         text = lineList.name,
                         fontSize = 16.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = Color.White, // Set text color to white
-                        overflow = TextOverflow.Ellipsis,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White,
                         textAlign = TextAlign.Start
                     )
                     Text(
                         text = lineList.message,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Normal,
-                        color = Color.White, // Set text color to white
+                        color = Color.White,
                         overflow = TextOverflow.Ellipsis,
                         textAlign = TextAlign.Start
                     )
                 }
 
-                // Right date
                 Text(
                     text = lineList.date,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = Color.White, // Set text color to white
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Color.White,
                     modifier = Modifier.padding(start = 4.dp, end = 8.dp),
                     textAlign = TextAlign.End
                 )
             }
         }
-
     }
 }
 
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun LinePreview() {
+fun No1Preview() {
     No1(dummy_data().get_data_line())
 }
