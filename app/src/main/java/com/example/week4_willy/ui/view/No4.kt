@@ -105,7 +105,7 @@ fun SearchBar() {
 
 
 @Composable
-fun ExploreIG() {
+fun No4() {
     val context = LocalContext.current
     val jsonData = loadJsonData(context)
 
@@ -191,5 +191,5 @@ fun ExploreIG() {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun No4Preview() {
-    ExploreIG()
+    No4()
 }

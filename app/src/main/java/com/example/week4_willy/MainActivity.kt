@@ -9,8 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.week4_willy.ui.theme.Week4_WillyTheme
-import com.example.week4_willy.ui.view.ExploreIG
 import com.example.week4_willy.ui.view.No2Preview
+import com.example.week4_willy.ui.view.No3
 
 
 class MainActivity : ComponentActivity() {
@@ -24,9 +24,9 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
 //                    No1(dummy_data().get_data_line())
-//                      No2(dummy_data().get_data_tokopedia_category(), dummy_data().get_data_tokopedia_product())
-                    ExploreIG()
-
+//                    No2(dummy_data().get_data_tokopedia_category(), dummy_data().get_data_tokopedia_product())
+//                    No4()
+                    No3()
                 }
             }
         }
