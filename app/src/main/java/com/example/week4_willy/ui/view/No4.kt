@@ -6,13 +6,16 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -66,108 +69,124 @@ private fun getResourceIdForImage(imageFileName: String): Int {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+fun SearchBar() {
+    var search by rememberSaveable { mutableStateOf("") }
+
+    OutlinedTextField(
+        value = search,
+        onValueChange = {
+            search = it
+        },
+        label = {
+            Image(
+                painter = painterResource(id = R.drawable.search),
+                contentDescription = null,
+                modifier = Modifier.size(21.dp),
+                colorFilter = ColorFilter.tint(Color.White)
+            )
+            Text("Search", color = Color.White, modifier = Modifier.padding(start = 30.dp))
+        },
+        shape = RoundedCornerShape(18.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 8.dp)
+            .padding(horizontal = 8.dp),
+        keyboardOptions = KeyboardOptions.Default.copy(
+            keyboardType = KeyboardType.Text,
+            imeAction = ImeAction.Done
+        ),
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = Color.Gray,
+            unfocusedBorderColor = Color.Gray,
+            textColor = Color.White
+        )
+    )
+}
+
+
+@Composable
 fun ExploreIG() {
     val context = LocalContext.current
     val jsonData = loadJsonData(context)
 
-    var search by rememberSaveable { mutableStateOf("") }
 
-    Column(Modifier.background(Color.Black)) {
-        Column(
-            modifier = Modifier.weight(1f)
+
+    Box {
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(3),
+            modifier = Modifier
+                .background(Color.Black).padding(bottom = 70.dp)
         ) {
-            OutlinedTextField(
-                value = search,
-                onValueChange = {
-                    search = it
-                },
-                label = {
-                    Image(
-                        painter = painterResource(id = R.drawable.search),
-                        contentDescription = null,
-                        modifier = Modifier.size(21.dp),
-                        colorFilter = ColorFilter.tint(Color.White)
-                    )
-                    Text("Search", color = Color.White, modifier = Modifier.padding(start = 30.dp))
-                },
-                shape = RoundedCornerShape(18.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 8.dp)
-                    .padding(horizontal = 8.dp),
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Done
-                ),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    focusedBorderColor = Color.Gray,
-                    unfocusedBorderColor = Color.Gray,
-                    textColor = Color.White
-                )
-            )
-
-
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(3)
+            item(
+                span = { GridItemSpan(3) }
             ) {
-                items(jsonData) { item ->
-                    Image(
-                        painter = painterResource(id = getResourceIdForImage(item.content)),
-                        contentDescription = item.content,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .aspectRatio(1f)
-                            .clickable {
-                                Toast
-                                    .makeText(context, item.content, Toast.LENGTH_SHORT)
-                                    .show()
-                            },
-                        contentScale = ContentScale.FillHeight
-                    )
-                }
+                SearchBar()
+            }
+
+            items(jsonData) { item ->
+                Image(
+                    painter = painterResource(id = getResourceIdForImage(item.content)),
+                    contentDescription = item.content,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1f)
+                        .clickable {
+                            Toast
+                                .makeText(context, item.content, Toast.LENGTH_SHORT)
+                                .show()
+                        },
+                    contentScale = ContentScale.FillHeight
+                )
             }
         }
 
-        Row(
+        Box(
+            contentAlignment = Alignment.BottomCenter,
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+                .fillMaxSize()
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.home),
-                contentDescription = null,
-                modifier = Modifier.size(32.dp),
-                colorFilter = ColorFilter.tint(Color.White)
-            )
-            Image(
-                painter = painterResource(id = R.drawable.search),
-                contentDescription = null,
-                modifier = Modifier.size(32.dp),
-                colorFilter = ColorFilter.tint(Color.White)
-            )
-            Image(
-                painter = painterResource(id = R.drawable.post),
-                contentDescription = null,
-                modifier = Modifier.size(32.dp),
-                colorFilter = ColorFilter.tint(Color.White)
-            )
-            Image(
-                painter = painterResource(id = R.drawable.reels),
-                contentDescription = null,
-                modifier = Modifier.size(32.dp),
-                colorFilter = ColorFilter.tint(Color.White)
-            )
-            Image(
-                painter = painterResource(id = R.drawable.account),
-                contentDescription = null,
-                modifier = Modifier.size(32.dp),
-                colorFilter = ColorFilter.tint(Color.White)
-            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.Black).height(70.dp).padding(horizontal = 15.dp, vertical = 18.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.home),
+                    contentDescription = null,
+                    modifier = Modifier.size(32.dp),
+                    colorFilter = ColorFilter.tint(Color.White)
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.search),
+                    contentDescription = null,
+                    modifier = Modifier.size(32.dp),
+                    colorFilter = ColorFilter.tint(Color.White)
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.post),
+                    contentDescription = null,
+                    modifier = Modifier.size(32.dp),
+                    colorFilter = ColorFilter.tint(Color.White)
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.reels),
+                    contentDescription = null,
+                    modifier = Modifier.size(32.dp),
+                    colorFilter = ColorFilter.tint(Color.White)
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.account),
+                    contentDescription = null,
+                    modifier = Modifier.size(32.dp),
+                    colorFilter = ColorFilter.tint(Color.White)
+                )
+            }
         }
     }
 }
+
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
