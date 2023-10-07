@@ -67,7 +67,6 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-import kotlin.random.Random
 
 @Composable
 fun loadFeedData(context: Context): List<Feed> {
@@ -110,7 +109,7 @@ fun No3() {
             modifier = Modifier
                 .background(Color.Black)
                 .fillMaxWidth()
-                .fillMaxHeight()
+                .fillMaxHeight().padding(bottom = 70.dp)
         ) {
 
             LazyColumn(
@@ -278,7 +277,6 @@ fun StoryUser(storyData: Story, modifier: Modifier = Modifier) {
 @Composable
 fun FeedColumn(feedData: Feed) {
     var textExpand by rememberSaveable { mutableStateOf(false) }
-    val random = Random.nextInt(3)
 
     val resourceId = getResourceIdForImage(imageFileName = feedData.profilePicture)
     Column(
@@ -506,9 +504,23 @@ fun FeedColumn(feedData: Feed) {
     val context = LocalContext.current
     val suggestionData = loadSuggestionData(context)
 
-    if (random == 0) {
-        SuggestRow(suggestionData = suggestionData)
+    val numberFromContent = extractAndParseNumber(feedData.feedContent)?.minus(1)
+    //diminus 1 soalnya mulai dari 1, jd content_1, output nya 0
+
+    if (numberFromContent != null) {
+        if (numberFromContent % 6 == 0) {
+            SuggestRow(suggestionData = suggestionData)
+        }
     }
+}
+
+//cek kalau di string ada number pake regex
+val regex = Regex("\\d+")
+
+//function buat extract numbers dari string misal content_2, jadi 2
+fun extractAndParseNumber(input: String): Int? {
+    val matchResult = regex.find(input)
+    return matchResult?.value?.toIntOrNull()
 }
 
 fun formatLikes(likes: Int): String {
