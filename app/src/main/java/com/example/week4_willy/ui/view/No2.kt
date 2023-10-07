@@ -83,7 +83,7 @@ fun No2(kategori: List<categories>, produk: List<products>) {
             modifier = Modifier.padding(bottom = 10.dp)
         )
 
-        LazyRow() {
+        LazyRow {
             items(kategori) {
                 CategoriesCard(
                     it,

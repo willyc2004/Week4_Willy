@@ -105,8 +105,6 @@ fun No3() {
     val feedData = loadFeedData(context)
     val storyData = loadStoryData(context)
 
-    var suggestionHit by rememberSaveable { mutableStateOf(0) }
-
     Box {
         Column(
             modifier = Modifier
@@ -459,13 +457,13 @@ fun FeedColumn(feedData: Feed) {
         )
         {
             if (!textExpand) {
-                clickableText(
+                ClickableText(
                     username = feedData.username,
                     caption = feedData.caption,
                     maxLine = 2
                 )
             } else {
-                clickableText(
+                ClickableText(
                     username = feedData.username,
                     caption = feedData.caption,
                     maxLine = 5000
@@ -476,7 +474,7 @@ fun FeedColumn(feedData: Feed) {
 
         val inputDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
         val sameYearFormat = SimpleDateFormat("MMMM d", Locale.US)
-        val notSameYearFormat = SimpleDateFormat("MMMM d, YYYY", Locale.US)
+        val notSameYearFormat = SimpleDateFormat("MMMM d, yyyy", Locale.US)
         val parsedDate = inputDateFormat.parse(feedData.date)
 
         if (parsedDate != null) {
@@ -586,7 +584,7 @@ fun SuggestionRow(suggestionData: Suggestion) {
 }
 
 @Composable
-fun clickableText(username: String, caption: String, maxLine: Int) {
+fun ClickableText(username: String, caption: String, maxLine: Int) {
     val text = buildAnnotatedString {
         withStyle(style = SpanStyle(fontWeight = Bold, fontSize = 15.sp)) {
             append(username)

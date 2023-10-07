@@ -36,7 +36,7 @@ import com.example.week4_willy.model.line_chat
 
 @Composable
 fun No1(lineList: List<line_chat>) {
-    Column() {
+    Column {
         Row(
             Modifier
                 .fillMaxWidth()
@@ -59,7 +59,7 @@ fun No1(lineList: List<line_chat>) {
                 tint = Color.White
             )
         }
-        LazyColumn() {
+        LazyColumn{
             items(lineList) {
                 LineCard(
                     it,
